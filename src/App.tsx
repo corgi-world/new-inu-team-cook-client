@@ -1,12 +1,15 @@
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
 
 import Clock from "react-live-clock";
 
-import { iNodeItems, iLinkItems } from "./forceGraph/types";
+import { iNodeItem, iNodeItems, iLinkItems } from "./forceGraph/types";
 import getForce from "./forceGraph/force";
 import Graph from "./forceGraph/Graph";
 
 import styled from "styled-components";
+import { AnimatePresence } from "framer-motion";
+
+import Detail from "./components/Detail";
 
 export default function App() {
   const FORCE = useMemo<any>(
@@ -27,26 +30,41 @@ export default function App() {
     return [];
   }
 
+  const [selectedNode, setSelectedNode] = useState<iNodeItem | null>(null);
+
+  const onNodeClick = (id: number, name: string) => {
+    setSelectedNode({ id, name });
+  };
+
+  const onOverlayClick = () => {
+    setSelectedNode(null);
+  };
+
   return (
-    <Wrapper>
-      <ClockBox>
-        <Clock format={"HH:mm:ss"} ticking={true} timezone={"Asia/Seoul"} />
-      </ClockBox>
-      <Graph
-        FORCE={FORCE}
-        nodeItems={nodeItems}
-        linkItems={linkItems}
-        calcFontSize={(id) => Math.floor(15 + 2.5 * id)}
-        calcFontWeight={(id) => {
-          const arr = ["200", "300", "400", "500", "600", "700", "900"];
-          const v = Math.floor(id / 5);
-          return arr[v];
-        }}
-        onNodeClick={(id, name) => {
-          console.log(id, name);
-        }}
-      />
-    </Wrapper>
+    <>
+      <Wrapper>
+        <ClockBox>
+          <Clock format={"HH:mm:ss"} ticking={true} timezone={"Asia/Seoul"} />
+        </ClockBox>
+        <Graph
+          FORCE={FORCE}
+          nodeItems={nodeItems}
+          linkItems={linkItems}
+          calcFontSize={(id) => Math.floor(15 + 2.5 * id)}
+          calcFontWeight={(id) => {
+            const arr = ["200", "300", "400", "500", "600", "700", "900"];
+            const v = Math.floor(id / 5);
+            return arr[v];
+          }}
+          onNodeClick={onNodeClick}
+        />
+      </Wrapper>
+      <AnimatePresence>
+        {selectedNode && (
+          <Detail selectedNode={selectedNode} onOverlayClick={onOverlayClick} />
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
