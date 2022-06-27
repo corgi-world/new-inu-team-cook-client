@@ -3,6 +3,7 @@ import axios from "axios";
 const BASE_URL = "http://54.180.114.46:3300";
 
 export interface iTopic {
+  [key: string]: string | number;
   id: number;
   rankurl: string;
   summary: string;
