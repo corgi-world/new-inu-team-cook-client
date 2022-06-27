@@ -1,6 +1,6 @@
 import { atom, selectorFamily } from "recoil";
-
 import { iTopic } from "./api";
+import { cutString } from "../util/util";
 
 export const topicAtom = atom<iTopic[]>({
   key: "topicAtom",
@@ -51,7 +51,7 @@ export const summarySelector = selectorFamily({
     ({ get }) => {
       const topic = get(topicAtom);
       const { summary } = topic.filter(({ keyword }) => targetKeyword === keyword)[0];
-      return summary;
+      return cutString(summary, 330);
     },
 });
 
