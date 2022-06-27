@@ -14,7 +14,7 @@ import Graph from "../forceGraph/Graph";
 import styled from "styled-components";
 import { AnimatePresence } from "framer-motion";
 
-import Detail from "./Detail";
+import Detail from "./detail/Detail";
 
 export default function Main() {
   const [topic, setTopic] = useRecoilState<iTopic[]>(topicAtom);

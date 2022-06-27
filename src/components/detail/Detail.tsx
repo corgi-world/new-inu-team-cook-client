@@ -1,9 +1,18 @@
 import React from "react";
 
-import { iNodeItem } from "../forceGraph/types";
+import { iNodeItem } from "../../forceGraph/types";
 
 import styled from "styled-components";
 import { motion } from "framer-motion";
+
+import { useRecoilValue } from "recoil";
+import {
+  ageSelector,
+  genderSelector,
+  linkSelector,
+  relatedKeywordSelector,
+  summarySelector,
+} from "../../data/atom";
 
 interface iDetail {
   selectedNode: iNodeItem;
@@ -11,7 +20,13 @@ interface iDetail {
 }
 
 export default function Detail({ selectedNode, onOverlayClick }: iDetail) {
-  console.log(selectedNode);
+  const { id, name } = selectedNode;
+
+  const gender = useRecoilValue(genderSelector(name));
+  const age = useRecoilValue(ageSelector(name));
+  const link = useRecoilValue(linkSelector(name));
+  const summary = useRecoilValue(summarySelector(name));
+  const relatedKeywords = useRecoilValue(relatedKeywordSelector(name));
 
   const stopPropagation = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
