@@ -3,7 +3,10 @@ import { useState, useMemo } from "react";
 import Clock from "react-live-clock";
 
 import { useQuery } from "react-query";
-import { fetchTopic, iTopic } from "../data/api";
+import { fetchTopic, iTopic, SAMPLE_DATA } from "../data/api";
+
+import { useRecoilState } from "recoil";
+import { topicAtom } from "../data/atom";
 
 import { iForce, iNodeItem, iNodeItems, iLinkItems } from "../forceGraph/types";
 import getForce from "../forceGraph/force";
@@ -15,9 +18,16 @@ import { AnimatePresence } from "framer-motion";
 import Detail from "./Detail";
 
 export default function Main() {
-  const { data } = useQuery<iTopic[]>("topic", fetchTopic, {
-    onSuccess: (data) => {},
-    onError: (err) => {},
+  const [topic, setTopic] = useRecoilState<iTopic[]>(topicAtom);
+
+  useQuery<iTopic[] | null>("topic", fetchTopic, {
+    onSuccess: (data) => {
+      if (!data) {
+        setTopic(SAMPLE_DATA);
+      } else {
+        setTopic(data);
+      }
+    },
     suspense: true,
   });
 
@@ -26,8 +36,8 @@ export default function Main() {
     []
   );
 
-  const nodeItems = useMemo<iNodeItems>(() => getNodeItems(data), [data]);
-  const linkItems = useMemo<iLinkItems>(() => getLinkItems(data), [data]);
+  const nodeItems = useMemo<iNodeItems>(() => getNodeItems(topic), [topic]);
+  const linkItems = useMemo<iLinkItems>(() => getLinkItems(topic), [topic]);
 
   function getNodeItems(data: iTopic[] | undefined): iNodeItems {
     if (!data) return [];
