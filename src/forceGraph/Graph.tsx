@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import { iGraph } from "./types";
 
@@ -17,8 +17,12 @@ export default function Graph({
 }: iGraph) {
   const gRef = useRef<SVGSVGElement>(null);
 
+  const [isInitialize, setIsinitialize] = useState(false);
+
   useEffect(() => {
     FORCE.initForce(nodeItems, linkItems);
+
+    setIsinitialize(true);
   }, [FORCE, nodeItems, linkItems]);
 
   useEffect(() => {
@@ -44,13 +48,24 @@ export default function Graph({
   });
 
   return (
-    <SVG className="graph" ref={gRef} width={FORCE.width} height={FORCE.height}>
+    <SVG
+      className="graph"
+      ref={gRef}
+      width={FORCE.width}
+      height={FORCE.height}
+      isInitialize={isInitialize}
+    >
       <g>{links}</g>
       <g>{nodes}</g>
     </SVG>
   );
 }
 
-const SVG = styled.svg`
+interface iSVG {
+  isInitialize: boolean;
+}
+
+const SVG = styled.svg<iSVG>`
   overflow: visible;
+  visibility: ${(props) => (props.isInitialize ? "visible" : "hidden")};
 `;
