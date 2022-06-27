@@ -68,7 +68,7 @@ export const relatedKeywordSelector = selectorFamily({
         if (key.includes("search")) {
           const related = targetTopic[key];
           if (related !== "0") {
-            result.push(related);
+            result.push(related + "");
           }
         }
       }
