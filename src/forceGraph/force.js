@@ -8,7 +8,7 @@ function getForce(width, height) {
       nsp.force = d3
         .forceSimulation(nodes)
         .force("charge", d3.forceManyBody().strength(-200))
-        .force("link", d3.forceLink(links).distance(100))
+        .force("link", d3.forceLink(links).distance(180))
         .force(
           "center",
           d3
