@@ -8,8 +8,7 @@ import { fetchTopic, iTopic, SAMPLE_DATA } from "../data/api";
 import { useRecoilState } from "recoil";
 import { topicAtom } from "../data/atom";
 
-import { iForce, iNodeItem, iNodeItems, iLinkItems } from "../forceGraph/types";
-import getForce from "../forceGraph/force";
+import { iNodeItem, iNodeItems, iLinkItems } from "../forceGraph/types";
 import Graph from "../forceGraph/Graph";
 
 import styled from "styled-components";
@@ -30,11 +29,6 @@ export default function Main() {
     },
     suspense: true,
   });
-
-  const FORCE = useMemo<iForce>(
-    () => getForce(window.innerWidth * 0.9, window.innerHeight - 120),
-    []
-  );
 
   const nodeItems = useMemo<iNodeItems>(() => getNodeItems(topic), [topic]);
   const linkItems = useMemo<iLinkItems>(() => getLinkItems(topic), [topic]);
@@ -69,7 +63,8 @@ export default function Main() {
           <Clock format={"HH:mm:ss"} ticking={true} timezone={"Asia/Seoul"} />
         </ClockBox>
         <Graph
-          FORCE={FORCE}
+          width={window.innerWidth * 0.9}
+          height={window.innerHeight - 120}
           nodeItems={nodeItems}
           linkItems={linkItems}
           calcFontSize={(id) => Math.floor(15 + 2.5 * id)}

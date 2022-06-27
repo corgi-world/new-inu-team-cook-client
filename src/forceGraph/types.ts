@@ -35,7 +35,8 @@ export interface iLinkItem {
 export type iLinkItems = iLinkItem[] | [];
 
 export interface iGraph {
-  FORCE: iForce;
+  width: number;
+  height: number;
   nodeItems: iNodeItems;
   linkItems: iLinkItems;
   calcFontSize: (id: number) => number;

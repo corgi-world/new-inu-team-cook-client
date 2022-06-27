@@ -1,21 +1,22 @@
-import { useState, useRef, useEffect } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 
-import { iGraph } from "./types";
-
+import getForce from "../forceGraph/force";
+import { iForce, iGraph } from "./types";
 import Node from "./Node";
 import Link from "./Link";
 
 import styled from "styled-components";
 
 export default function Graph({
-  FORCE,
+  width,
+  height,
   nodeItems,
   linkItems,
   calcFontSize,
   calcFontWeight,
   onNodeClick,
 }: iGraph) {
-  const gRef = useRef<SVGSVGElement>(null);
+  const FORCE = useMemo<iForce>(() => getForce(width, height), [width, height]);
 
   const [isInitialize, setIsinitialize] = useState(false);
 
@@ -24,6 +25,8 @@ export default function Graph({
 
     setIsinitialize(true);
   }, [FORCE, nodeItems, linkItems]);
+
+  const gRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     FORCE.tick(gRef.current);
