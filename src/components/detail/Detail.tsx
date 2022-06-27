@@ -116,7 +116,6 @@ const Wrapper = styled.div`
   border-radius: 15px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
   display: flex;
-  padding: 30px;
 `;
 
 const Title = styled.h1`
@@ -126,6 +125,7 @@ const Title = styled.h1`
 
 const ContentsWrapper = styled(Wrapper)`
   width: 1000px;
+  padding: 30px;
   flex-direction: column;
 `;
 
