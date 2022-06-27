@@ -3,14 +3,12 @@
 ## 개요
 
 - 실시간으로 이슈 된 키워드의 상세한 정보를 한눈에 확인할 수 있는 서비스
-- <a href="https://www.inu.ac.kr/user/indexSub.do?codyMenuSeq=2897302&siteId=isis&dum=dum&boardId=681623&page=3&command=view&boardSeq=682149" target="_blink">구두 발표로 선정 및 장려상 수상</a>
+- <a href="https://www.inu.ac.kr/user/indexSub.do?codyMenuSeq=2897302&siteId=isis&dum=dum&boardId=681623&page=3&command=view&boardSeq=682149" target="_blank">구두 발표로 선정 및 장려상 수상</a>
 - 프론트엔드 파트의 모든 개발과 배포를 담당
 - 배포 : http://54.180.114.46/
 
-<div style="display:flex; flex-direction: row;">
-  <img src="./public/main.png" width="50%" />
-  <img src="./public/detail.png" width="50%" />
-</div>
+<img src="./public/main.png" width="60%" />
+<img src="./public/detail.png" width="60%" />
 
 ## 기술 스택
 
