@@ -33,7 +33,10 @@ const api = axios.create({
 });
 
 export function fetchTopic(): Promise<iTopic[]> {
-  return api.get("/topic").then((response) => response.data);
+  return api
+    .get("/topic")
+    .then((response) => response.data)
+    .catch(() => null);
 }
 
 export const SAMPLE_DATA = [
